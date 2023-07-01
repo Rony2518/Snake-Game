@@ -1,7 +1,6 @@
 const playBoard = document.querySelector(".play-board");
 const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
-const controls = document.querySelectorAll(".controls i");
 
 let gameOver = false;
 let foodX, foodY;
@@ -25,23 +24,25 @@ const handleGameOver = () => {
     location.reload();
 }
 
-const changeDirection = e => {
-    if (e.key === "ArrowUp" && velocityY != 1) {
-        velocityX = 0;
-        velocityY = -1;
-    } else if (e.key === "ArrowDown" && velocityY != -1) {
-        velocityX = 0;
-        velocityY = 1;
-    } else if (e.key === "ArrowLeft" && velocityX != 1) {
-        velocityX = -1;
-        velocityY = 0;
-    } else if (e.key === "ArrowRight" && velocityX != -1) {
-        velocityX = 1;
-        velocityY = 0;
+const changeDirection = (deltaX, deltaY) => {
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0 && velocityX !== -1) {
+            velocityX = 1;
+            velocityY = 0;
+        } else if (deltaX < 0 && velocityX !== 1) {
+            velocityX = -1;
+            velocityY = 0;
+        }
+    } else {
+        if (deltaY > 0 && velocityY !== -1) {
+            velocityX = 0;
+            velocityY = 1;
+        } else if (deltaY < 0 && velocityY !== 1) {
+            velocityX = 0;
+            velocityY = -1;
+        }
     }
 }
-
-controls.forEach(button => button.addEventListener("click", () => changeDirection({ key: button.dataset.key })));
 
 const initGame = () => {
     if (gameOver) return handleGameOver();
@@ -67,7 +68,7 @@ const initGame = () => {
     }
     snakeBody[0] = [snakeX, snakeY]; // Setting first element of snake body to current snake position
 
-    // Checking if the snake's head is out of wall, if so setting gameOver to true
+    // Checking if the snake's head is out of the wall, if so setting gameOver to true
     if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
         return gameOver = true;
     }
@@ -82,7 +83,22 @@ const initGame = () => {
     }
     playBoard.innerHTML = html;
 }
+
 updateFoodPosition();
 setIntervalId = setInterval(initGame, 100);
-document.addEventListener("keyup", changeDirection);
+
+document.addEventListener("touchstart", (e) => {
+    const touchStartX = e.touches[0].clientX;
+    const touchStartY = e.touches[0].clientY;
+
+    document.addEventListener("touchend", (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        changeDirection(deltaX, deltaY);
+    });
+});
 
