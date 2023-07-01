@@ -125,8 +125,3 @@ document.addEventListener("touchend", (e) => {
     changeDirection(deltaX, deltaY);
     e.preventDefault(); // Prevents the default behavior of touchend
 });
-
-// Disable scrolling of the page while playing the game
-function disableScroll() {
-    document.body.classList.add('no-scroll');
-}
