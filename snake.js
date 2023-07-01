@@ -103,17 +103,21 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
+let touchStartX, touchStartY;
+
 document.addEventListener("touchstart", (e) => {
-    const touchStartX = e.touches[0].clientX;
-    const touchStartY = e.touches[0].clientY;
-  
-    document.addEventListener("touchend", (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-  
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
-  
-        changeDirection(deltaX, deltaY);
-    });
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    e.preventDefault(); // Prevents the default behavior of touchstart
+});
+
+document.addEventListener("touchend", (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    changeDirection(deltaX, deltaY);
+    e.preventDefault(); // Prevents the default behavior of touchend
 });
