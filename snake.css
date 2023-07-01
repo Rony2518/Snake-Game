@@ -46,25 +46,11 @@ body {
 
 .play-board .food {
     background: #ff0000;
+    border-radius:2px;
 }
 
 .play-board .head {
     background: #00e81f;
-}
-
-.controls {
-    display: none;
-    justify-content: space-between;
-}
-
-.controls i {
-    padding: 25px 0;
-    text-align: center;
-    font-size: 1.3rem;
-    color: #212837;
-    width: calc(100% / 4);
-    cursor: pointer;
-    border-right: 1px solid #171B26;
 }
 
 .no-scroll {
