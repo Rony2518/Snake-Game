@@ -111,6 +111,10 @@ document.addEventListener("touchstart", (e) => {
     e.preventDefault(); // Prevents the default behavior of touchstart
 });
 
+document.addEventListener("touchmove", (e) => {
+    e.preventDefault(); // Prevents the default behavior of touchmove
+});
+
 document.addEventListener("touchend", (e) => {
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
@@ -121,3 +125,14 @@ document.addEventListener("touchend", (e) => {
     changeDirection(deltaX, deltaY);
     e.preventDefault(); // Prevents the default behavior of touchend
 });
+
+// Disable scrolling of the page while playing the game
+function disableScroll() {
+    document.body.classList.add('no-scroll');
+}
+
+// Enable scrolling of the page
+function enableScroll() {
+    document.body.classList.remove('no-scroll');
+}
+
