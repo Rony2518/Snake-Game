@@ -130,9 +130,3 @@ document.addEventListener("touchend", (e) => {
 function disableScroll() {
     document.body.classList.add('no-scroll');
 }
-
-// Enable scrolling of the page
-function enableScroll() {
-    document.body.classList.remove('no-scroll');
-}
-
