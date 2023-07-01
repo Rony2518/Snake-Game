@@ -87,18 +87,33 @@ const initGame = () => {
 updateFoodPosition();
 setIntervalId = setInterval(initGame, 100);
 
+document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp" && velocityY !== 1) {
+        velocityX = 0;
+        velocityY = -1;
+    } else if (e.key === "ArrowDown" && velocityY !== -1) {
+        velocityX = 0;
+        velocityY = 1;
+    } else if (e.key === "ArrowLeft" && velocityX !== 1) {
+        velocityX = -1;
+        velocityY = 0;
+    } else if (e.key === "ArrowRight" && velocityX !== -1) {
+        velocityX = 1;
+        velocityY = 0;
+    }
+});
+
 document.addEventListener("touchstart", (e) => {
     const touchStartX = e.touches[0].clientX;
     const touchStartY = e.touches[0].clientY;
-
+  
     document.addEventListener("touchend", (e) => {
         const touchEndX = e.changedTouches[0].clientX;
         const touchEndY = e.changedTouches[0].clientY;
-
+  
         const deltaX = touchEndX - touchStartX;
         const deltaY = touchEndY - touchStartY;
-
+  
         changeDirection(deltaX, deltaY);
     });
 });
-
