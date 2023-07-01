@@ -67,6 +67,11 @@ body {
     border-right: 1px solid #171B26;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
+
 @media screen and (max-width: 800px) {
     .wrapper {
         width: 90vmin;
